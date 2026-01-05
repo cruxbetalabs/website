@@ -127,6 +127,39 @@
             transform: translateY(-0.1em);
         }
 
+        .hover-image-container {
+            position: relative;
+            display: inline;
+        }
+
+        .hover-image-box {
+            display: none;
+            position: absolute;
+            z-index: 1000;
+            background: white;
+            border: 1px solid black;
+            border-radius: 8px;
+            padding: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: calc(100% + 10px);
+            pointer-events: none;
+        }
+
+        .hover-image-container:hover .hover-image-box {
+            display: block;
+        }
+
+        .hover-image-box img {
+            display: block;
+            max-width: 300px;
+            max-height: 300px;
+            width: auto;
+            height: auto;
+            border-radius: 4px;
+        }
+
         .grid-40-60 {
             display: grid;
             grid-template-columns: 40% 60%;
@@ -209,23 +242,23 @@
                     <ul class="arrow-list space-y-4">
                         <li>
                             <a href="https://github.com/tommyjtl/climbing-analysis-toolbox" target="_blank">
-                                <p class="body-text inline font-semibold">Climbing Video Analysis Toolbox</p>
+                                <p class="body-text inline"><strong>Climbing Video Analysis Toolbox</strong></p>
                             </a>
                             <p class="caption-text mt-2">Computer vision tools for analyzing climbing videos.</p>
                         </li>
                         <li>
-                            <p class="body-text inline font-semibold">Crux & Beta</p>
-                            <span class="coming-soon-badge">Coming Soon to iOS</span>
+                            <p class="body-text inline"><strong>Crux & Beta (iOS)</strong></p>
+                            <span class="coming-soon-badge">Under Development</span>
                             <p class="caption-text mt-2">AR-powered beta sharing app with movement analysis overlay.</p>
                         </li>
                         <li>
-                            <p class="body-text inline font-semibold">Crux Web</p>
+                            <p class="body-text inline"><strong>Crux Web</strong></p>
                             <span class="coming-soon-badge">Under Development</span>
                             <p class="caption-text mt-2">A climbing pose 3D reconstruction web app.</p>
                         </li>
                         <li>
                             <a href="https://blog.tjtl.io/climbing-board-game/" target="_blank">
-                                <p class="body-text inline font-semibold">Boulder Quest</p>
+                                <p class="body-text inline"><strong>Boulder Quest</strong></p>
                             </a>
                             <p class="caption-text mt-2">A playful bouldering-themed board game.</p>
                         </li>
@@ -233,7 +266,18 @@
                 </div>
             </div>
 
-            <!-- Row 6: Footer -->
+            <!-- Row 6: Divider + Log -->
+            <div class="divider"></div>
+            <div class="grid-40-60 mb-12">
+                <div>
+                    <h2>Log</h2>
+                </div>
+                <div>
+                    <span class="coming-soon-badge">TBA</span>
+                </div>
+            </div>
+
+            <!-- Row 7: Footer -->
             <div class="divider"></div>
             <div>
                 <p class="caption-text">© 2026 Crux Beta Labs LLC. All rights reserved.</p>
