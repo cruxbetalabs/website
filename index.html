@@ -11,6 +11,11 @@
     <link
         href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap"
         rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
@@ -33,19 +38,27 @@
 
         h2 {
             font-size: var(--h2-size) !important;
-            font-weight: 600 !important;
+            font-weight: 650 !important;
             color: black !important;
             line-height: 1.2 !important;
         }
 
         .body-text {
+            letter-spacing: -0.01em;
+            font-family: 'Work Sans', sans-serif !important;
             font-size: var(--body-size) !important;
-            font-weight: 300 !important;
+            font-weight: 350 !important;
             color: black !important;
-            line-height: 1.35 !important;
+            line-height: 1.4 !important;
+        }
+
+        .body-text strong {
+            font-weight: 550 !important;
         }
 
         .caption-text {
+            letter-spacing: -0.025em;
+            font-family: 'Work Sans', sans-serif !important;
             font-size: var(--caption-size) !important;
             font-weight: 400 !important;
             color: rgba(0, 0, 0, 0.80) !important;
@@ -164,11 +177,11 @@
 
             <!-- Row 3: Divider + Founder info -->
             <div class="divider"></div>
-            <div class="grid-40-60 mb-12">
+            <div class="grid-40-60 mb-6 md:mb-12">
                 <div></div>
                 <div>
                     <p class="caption-text">Founded by <a href="https://blog.tjtl.io/bouldering-and-computer-vision/"
-                            class="underline" target="_blank">Tommy Liu</a> in Berkeley, California.</p>
+                            class="underline" target="_blank">Tommy Liu</a>. Based in Berkeley, California.</p>
                 </div>
             </div>
 
@@ -178,8 +191,10 @@
                     <h2>About</h2>
                 </div>
                 <div>
-                    <p class="body-text">Climbing is a form of art, shaped by instinct, refined by decision, and
-                        executed through human computation. We build tools for spatial computing and climbing
+                    <p class="body-text">Climbing is a form of <strong>art</strong>, shaped by instinct, refined by
+                        decision, and
+                        executed through human <strong>computation</strong>. We build tools for spatial computing and
+                        climbing
                         performance, exploring how the body thinks in motion.</p>
                 </div>
             </div>
