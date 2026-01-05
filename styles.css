@@ -111,6 +111,10 @@ body {
     .hero-image {
         max-width: 80%;
     }
+
+    .hero-content p {
+        font-size: 18px;
+    }
 }
 
 .hero-content h1 {
@@ -122,12 +126,13 @@ body {
 }
 
 .hero-content p {
-    font-size: 18px;
+    font-size: 22px;
     color: var(--text-secondary);
     margin-bottom: 40px;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
+    line-height: 1.7;
 }
 
 .cta-buttons {
