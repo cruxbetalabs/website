@@ -49,6 +49,13 @@ body {
     display: block;
 }
 
+/* Hide logo hover box on mobile */
+@media (max-width: 768px) {
+    .logo-hover-box {
+        display: none !important;
+    }
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
