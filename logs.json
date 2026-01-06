@@ -1,0 +1,32 @@
+{
+    "logs": [
+        {
+            "id": "2026-01-05-site-launched",
+            "title": "Added log system",
+            "date": "2026-01-05",
+            "category": "snippet",
+            "file": "logs/2026-01-05-site-launched.md"
+        },
+        {
+            "id": "2026-01-04",
+            "title": "First gym test session",
+            "date": "2026-01-04",
+            "category": "crux-beta-ios",
+            "file": "logs/2026-01-04.md"
+        },
+        {
+            "id": "2025-12-18-snippet",
+            "title": "December 18 snippet",
+            "date": "2025-12-18",
+            "category": "snippet",
+            "file": "logs/2025-12-18.md"
+        },
+        {
+            "id": "summer-2025-snippet",
+            "title": "Summer 2025 snippet",
+            "date": "2025-08-01",
+            "category": "climbing-analysis",
+            "file": "logs/summer-2025.md"
+        }
+    ]
+}

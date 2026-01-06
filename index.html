@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crux Beta Labs</title>
-
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="script.js"></script>
 </head>
 
@@ -27,10 +27,12 @@
             <div class="divider"></div>
             <div class="grid-40-60">
                 <div class="flex items-center justify-start">
-                    <img src="logo.svg" alt="Crux Beta Labs Logo" style="height: var(--h1-size);">
+                    <a href="/"><img src="logo.svg" alt="Crux Beta Labs Logo" style="height: var(--h1-size);"></a>
                 </div>
                 <div>
-                    <h1>Crux Beta Labs</h1>
+                    <a href="/" style="text-decoration: none; color: inherit;">
+                        <h1>Crux Beta Labs</h1>
+                    </a>
                 </div>
             </div>
 
@@ -67,25 +69,43 @@
                 <div>
                     <ul class="arrow-list space-y-4">
                         <li>
-                            <a href="https://github.com/tommyjtl/climbing-analysis-toolbox" target="_blank">
-                                <p class="body-text inline"><strong>Climbing Video Analysis Toolbox</strong></p>
-                            </a>
+                            <div class="project-header">
+                                <a href="https://github.com/tommyjtl/climbing-analysis-toolbox" target="_blank">
+                                    <p class="body-text inline project-title"><strong>Climbing Video Analysis
+                                            Toolbox</strong></p>
+                                </a>
+                                <span class="project-dotted-line"></span>
+                                <span class="project-code-name">CBL-03</span>
+                            </div>
                             <p class="caption-text mt-2">Computer vision tools for analyzing climbing videos.</p>
                         </li>
                         <li>
-                            <p class="body-text inline"><strong>Crux & Beta (iOS)</strong></p>
-                            <span class="coming-soon-badge">Under Development</span>
-                            <p class="caption-text mt-2">AR-powered beta sharing app with movement analysis overlay.</p>
+                            <div class="project-header">
+                                <p class="body-text inline project-title"><strong>Crux & Beta</strong></p>
+                                <span class="coming-soon-badge" style="margin-left: 0.5rem;">Under Development</span>
+                                <span class="project-dotted-line"></span>
+                                <span class="project-code-name">CBL-04</span>
+                            </div>
+                            <p class="caption-text mt-2">AR-powered beta sharing iOS app with movement analysis overlay.
+                            </p>
                         </li>
                         <li>
-                            <p class="body-text inline"><strong>Crux Web</strong></p>
-                            <span class="coming-soon-badge">Under Development</span>
+                            <div class="project-header">
+                                <p class="body-text inline project-title"><strong>Crux Web</strong></p>
+                                <span class="coming-soon-badge" style="margin-left: 0.5rem;">Under Development</span>
+                                <span class="project-dotted-line"></span>
+                                <span class="project-code-name">CBL-02</span>
+                            </div>
                             <p class="caption-text mt-2">A climbing pose 3D reconstruction web app.</p>
                         </li>
                         <li>
-                            <a href="https://blog.tjtl.io/climbing-board-game/" target="_blank">
-                                <p class="body-text inline"><strong>Boulder Quest</strong></p>
-                            </a>
+                            <div class="project-header">
+                                <a href="https://blog.tjtl.io/climbing-board-game/" target="_blank">
+                                    <p class="body-text inline project-title"><strong>Boulder Quest</strong></p>
+                                </a>
+                                <span class="project-dotted-line"></span>
+                                <span class="project-code-name">CBL-01</span>
+                            </div>
                             <p class="caption-text mt-2">A playful bouldering-themed board game.</p>
                         </li>
                     </ul>
@@ -96,14 +116,23 @@
             <div class="divider"></div>
             <div class="grid-40-60 mb-12">
                 <div>
-                    <h2>Log</h2>
+                    <h2 id="log-toggle" class="log-toggle-heading">
+                        <span>Log</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="log-toggle-icon">
+                            <path d="M3 5v14" />
+                            <path d="M21 12H7" />
+                            <path d="m15 18 6-6-6-6" />
+                        </svg>
+                    </h2>
                 </div>
                 <div>
-                    <p class="caption-text mt-2"><span class="coming-soon-badge ms-0 me-1">TBA</span> Meanwhile, take a
-                        look
-                        at some previous notes <a
-                            href="https://blog.tjtl.io/bouldering-and-computer-vision/#working-log" class="underline"
-                            target="_blank">here</a>.</p>
+                    <ul class="log-overview-list">
+                        <li class="log-overview-item">
+                            <span class="log-overview-title body-text">Loading logs...</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
 
@@ -114,8 +143,35 @@
             </div>
         </div>
 
-        <!-- Right 1/3: Blank space on desktop -->
-        <div class="hidden md:block md:w-1/3 bg-white"></div>
+        <!-- Right 1/3: Log sidebar on desktop -->
+        <div class="hidden md:block md:w-1/3 bg-white log-sidebar log-sidebar-hidden">
+            <div class="log-sidebar-header">
+                <div class="log-sidebar-title-row">
+                    <h2>Log</h2>
+                    <button id="log-close-btn" class="log-close-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-x-icon lucide-x">
+                            <path d="M18 6 6 18" />
+                            <path d="m6 6 12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Category filter tabs -->
+                <div class="log-categories">
+                    <button class="log-category-btn active" data-category="all">All</button>
+                    <button class="log-category-btn" data-category="snippet">Snippets</button>
+                    <button class="log-category-btn" data-category="climbing-analysis">Climbing Video Analysis</button>
+                    <button class="log-category-btn" data-category="crux-beta-ios">Crux & Beta iOS</button>
+                </div>
+            </div>
+
+            <!-- Log entries container -->
+            <div class="log-entries">
+                <!-- Log entries will be loaded dynamically from markdown files -->
+            </div>
+        </div>
     </div>
 </body>
 
