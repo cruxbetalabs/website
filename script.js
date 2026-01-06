@@ -1,3 +1,6 @@
+// Import markdown utilities
+import { parseMarkdown } from './util.js'
+
 // Create loading indicator
 const loadingDiv = document.createElement('div')
 loadingDiv.id = 'loading'
@@ -29,7 +32,7 @@ let logsData = []
 async function initializeLogSystem() {
     try {
         // Load logs metadata
-        const response = await fetch('logs.json')
+        const response = await fetch('logs/logs.json')
         const data = await response.json()
         logsData = data.logs
 
@@ -125,14 +128,6 @@ async function renderLogCards() {
 
     logEntriesContainer.innerHTML = ''
 
-    // Configure marked to open links in new tab
-    const renderer = new marked.Renderer()
-    const originalLinkRenderer = renderer.link
-    renderer.link = function (href, title, text) {
-        const html = originalLinkRenderer.call(this, href, title, text)
-        return html.replace(/^<a /, '<a target="_blank" rel="noopener noreferrer" ')
-    }
-
     for (const log of logsData) {
         try {
             // Fetch markdown content
@@ -140,7 +135,7 @@ async function renderLogCards() {
             const markdown = await response.text()
 
             // Parse markdown to HTML with custom renderer
-            const htmlContent = marked.parse(markdown, { renderer: renderer })
+            const htmlContent = parseMarkdown(markdown)
 
             // Create log card
             const logCard = document.createElement('div')
