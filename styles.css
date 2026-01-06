@@ -28,6 +28,27 @@ body {
     background: #ffffff;
 }
 
+/* Logo hover box */
+.logo-hover-box {
+    position: fixed;
+    display: none;
+    background: white;
+    /* border-radius: 8px; */
+    border: 0.5px solid rgba(0, 0, 0, 0.1);
+    /* padding: 16px; */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    pointer-events: none;
+    z-index: 1000;
+    transition: opacity 0.2s ease;
+}
+
+.logo-hover-box img {
+    height: 255px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;

@@ -18,6 +18,9 @@ window.addEventListener("load", () => {
 
     // Initialize log toggle
     initializeLogToggle()
+
+    // Initialize logo hover effect
+    initializeLogoHover()
 })
 
 // Log system - load and render markdown logs
@@ -262,4 +265,30 @@ function initializeLogToggle() {
             }
         })
     }
+}
+
+// Logo hover effect
+function initializeLogoHover() {
+    const logo = document.getElementById('crux-logo')
+    const hoverBox = document.getElementById('logo-hover-box')
+
+    if (!logo || !hoverBox) return
+
+    const offset = { x: 15, y: 15 } // Offset from cursor
+
+    logo.addEventListener('mouseenter', () => {
+        hoverBox.style.display = 'block'
+    })
+
+    logo.addEventListener('mousemove', (e) => {
+        const x = e.clientX + offset.x
+        const y = e.clientY + offset.y
+
+        hoverBox.style.left = x + 'px'
+        hoverBox.style.top = y + 'px'
+    })
+
+    logo.addEventListener('mouseleave', () => {
+        hoverBox.style.display = 'none'
+    })
 }
