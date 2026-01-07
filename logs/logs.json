@@ -1,6 +1,13 @@
 {
     "logs": [
         {
+            "id": "2026-01-06",
+            "file": "logs/2026-01-06.md",
+            "title": "Second gym test at Mosaic",
+            "date": "2026-01-06",
+            "category": "crux-beta-ios"
+        },
+        {
             "id": "2026-01-05-site-launched",
             "title": "Added log system",
             "date": "2026-01-05",
