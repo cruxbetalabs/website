@@ -50,6 +50,10 @@ body {
     display: block;
 }
 
+#tommy-hover-box img {
+    height: 30px;
+}
+
 /* Hide logo hover box on mobile */
 @media (max-width: 768px) {
     .logo-hover-box {

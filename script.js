@@ -24,6 +24,9 @@ window.addEventListener("load", () => {
 
     // Initialize logo hover effect
     initializeLogoHover()
+
+    // Initialize Tommy link hover effect
+    initializeTommyHover()
 })
 
 // Log system - load and render markdown logs
@@ -284,6 +287,31 @@ function initializeLogoHover() {
     })
 
     logo.addEventListener('mouseleave', () => {
+        hoverBox.style.display = 'none'
+    })
+}
+
+function initializeTommyHover() {
+    const tommyLink = document.getElementById('tommy-link')
+    const hoverBox = document.getElementById('tommy-hover-box')
+
+    if (!tommyLink || !hoverBox) return
+
+    const offset = { x: 15, y: 15 } // Offset from cursor
+
+    tommyLink.addEventListener('mouseenter', () => {
+        hoverBox.style.display = 'block'
+    })
+
+    tommyLink.addEventListener('mousemove', (e) => {
+        const x = e.clientX + offset.x
+        const y = e.clientY + offset.y
+
+        hoverBox.style.left = x + 'px'
+        hoverBox.style.top = y + 'px'
+    })
+
+    tommyLink.addEventListener('mouseleave', () => {
         hoverBox.style.display = 'none'
     })
 }
