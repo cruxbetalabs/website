@@ -56,10 +56,7 @@ function extractAndUpdateLogs(markdownFilePath, logsJsonPath) {
 
     // Get file name without extension for ID
     const fileName = path.basename(markdownFilePath, '.md');
-    const relativeFilePath = path.relative(
-      path.dirname(logsJsonPath),
-      markdownFilePath
-    );
+    const relativeFilePath = `logs/${path.basename(markdownFilePath)}`;
 
     // Find or create log entry
     let logEntry = logsData.logs.find(log => log.id === fileName);
