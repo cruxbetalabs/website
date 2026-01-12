@@ -1,6 +1,13 @@
 {
     "logs": [
         {
+            "id": "2026-01-11",
+            "file": "logs/2026-01-11.md",
+            "title": "Focus on what will stands out",
+            "date": "2026-01-11",
+            "category": "crux-beta-ios"
+        },
+        {
             "id": "2026-01-08",
             "file": "logs/2026-01-08.md",
             "title": "Half way there",
