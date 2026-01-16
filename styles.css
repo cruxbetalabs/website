@@ -454,7 +454,6 @@ h2 {
 .arrow-list li {
     padding-left: 0;
     position: relative;
-    transition: padding-left 0.2s ease;
 }
 
 .arrow-list li::before {
@@ -468,21 +467,6 @@ h2 {
     background-repeat: no-repeat;
     background-size: contain;
     opacity: 0;
-    transition: opacity 0.2s ease;
-}
-
-.arrow-list li:hover {
-    padding-left: 2rem;
-}
-
-@media (max-width: 768px) {
-    .arrow-list li:hover {
-        padding-left: 0;
-    }
-}
-
-.arrow-list li:hover::before {
-    opacity: 1;
 }
 
 @media (max-width: 768px) {
@@ -494,10 +478,6 @@ h2 {
 .arrow-list a {
     text-decoration: none;
     color: inherit;
-}
-
-.arrow-list li:hover a {
-    text-decoration: underline;
 }
 
 @media (max-width: 768px) {
@@ -1059,4 +1039,79 @@ h2 {
     color: black;
     border: 1px solid black;
     padding: 0.5rem 0.75rem;
+}
+
+/* Inspiration accordion styles */
+.inspiration-accordion {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    padding-bottom: .4rem;
+}
+
+.inspiration-accordion summary {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    outline: none;
+    color: var(--text-primary);
+    transition: color 0.2s ease;
+    font-weight: 500 !important;
+}
+
+.inspiration-accordion summary:hover {
+    color: var(--accent);
+}
+
+.inspiration-accordion summary::marker {
+    content: '';
+}
+
+.inspiration-accordion summary::before {
+    content: '▶';
+    font-size: 0.75rem;
+    transition: transform 0.2s ease;
+    display: inline-block;
+}
+
+.inspiration-accordion[open] summary::before {
+    transform: rotate(90deg);
+}
+
+.inspiration-accordion summary::after {
+    content: 'expand';
+    font-size: 0.9rem;
+    color: rgba(0, 0, 0, .4);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    font-weight: 400;
+    flex-shrink: 0;
+    margin-left: auto;
+}
+
+.inspiration-accordion summary:hover::after {
+    opacity: 1;
+}
+
+.inspiration-accordion[open] summary::after {
+    content: 'collapse';
+    opacity: 1;
+}
+
+.inspiration-accordion ul {
+    padding-bottom: 1.2rem;
+    /* padding-left: .025rem; */
+}
+
+.inspiration-accordion li {
+    margin-left: 0.2rem;
+}
+
+.inspiration-accordion a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.inspiration-accordion a:hover {
+    text-decoration: underline;
+    text-decoration-color: rgba(0, 0, 0, 0.2);
+    text-underline-offset: 0.25em;
 }

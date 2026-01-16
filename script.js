@@ -50,8 +50,13 @@ async function initializeLogSystem() {
 
         // Check for article query param and scroll to it
         checkAndScrollToArticle()
+
+        // Dispatch event when logs are loaded
+        window.dispatchEvent(new Event('logsLoaded'))
     } catch (error) {
         console.error('Error loading logs:', error)
+        // Dispatch event even on error so scroll can still happen
+        window.dispatchEvent(new Event('logsLoaded'))
     }
 }
 
