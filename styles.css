@@ -423,7 +423,7 @@ h2 {
     font-size: var(--body-size) !important;
     font-weight: 350 !important;
     color: black !important;
-    line-height: 1.45 !important;
+    line-height: 1.5 !important;
 }
 
 .body-text strong {
@@ -501,8 +501,6 @@ h2 {
     flex: 1;
     height: 1px;
     margin: 0 0.5rem;
-    opacity: 0;
-    transition: opacity 0.2s ease;
     background-image: repeating-linear-gradient(to right,
             rgba(0, 0, 0, 0.3) 0px,
             rgba(0, 0, 0, 0.3) 2px,
@@ -518,13 +516,6 @@ h2 {
     color: rgba(0, 0, 0, 0.6);
     border-radius: 2px;
     font-weight: 500;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-}
-
-.arrow-list li:hover .project-dotted-line,
-.arrow-list li:hover .project-code-name {
-    opacity: 1;
 }
 
 @media (max-width: 768px) {
@@ -807,6 +798,97 @@ h2 {
     font-weight: 500;
     vertical-align: baseline;
     transform: translateY(-0.1em);
+}
+
+/* Badge variants */
+.badge-under-development {
+    display: inline-block;
+    font-size: 0.8rem;
+    padding: 2px 8px;
+    background-color: transparent;
+    color: #999;
+    border: 1px solid #999;
+    border-radius: 4px;
+    margin-left: 8px;
+    font-weight: 500;
+    vertical-align: baseline;
+    transform: translateY(-0.1em);
+    transition: all 0.2s ease;
+}
+
+.badge-alpha {
+    display: inline-block;
+    font-size: 0.8rem;
+    padding: 2px 8px;
+    background-color: transparent;
+    color: #999;
+    border: 1px solid #999;
+    border-radius: 4px;
+    margin-left: 8px;
+    font-weight: 500;
+    vertical-align: baseline;
+    transform: translateY(-0.1em);
+    transition: all 0.2s ease;
+}
+
+.badge-beta {
+    display: inline-block;
+    font-size: 0.8rem;
+    padding: 2px 8px;
+    background-color: transparent;
+    color: #999;
+    border: 1px solid #999;
+    border-radius: 4px;
+    margin-left: 8px;
+    font-weight: 500;
+    vertical-align: baseline;
+    transform: translateY(-0.1em);
+    transition: all 0.2s ease;
+}
+
+.badge-archived {
+    display: inline-block;
+    font-size: 0.8rem;
+    padding: 2px 8px;
+    background-color: transparent;
+    color: #999;
+    border: 1px solid #999;
+    border-radius: 4px;
+    margin-left: 8px;
+    font-weight: 500;
+    vertical-align: baseline;
+    transform: translateY(-0.1em);
+    transition: all 0.2s ease;
+}
+
+/* Hover states for badges */
+.arrow-list li:hover .badge-under-development {
+    background-color: #e5e5e5;
+    color: #666;
+    border-color: #666;
+}
+
+.arrow-list li:hover .badge-alpha {
+    background-color: #ffefe0;
+    color: #df631fdc;
+    border-color: #df631fdc;
+}
+
+.arrow-list li:hover .badge-beta {
+    background-color: #e3f2fd;
+    color: #1565c0;
+    border-color: #1565c0;
+}
+
+.arrow-list li:hover .badge-archived {
+    background-color: #e5e5e5;
+    color: #666;
+    border-color: #666;
+}
+
+/* Cursor for under development items */
+.arrow-list li:has(.badge-under-development):hover {
+    cursor: not-allowed;
 }
 
 .grid-cols {
