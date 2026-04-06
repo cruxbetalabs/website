@@ -114,14 +114,7 @@ function renderLogOverview() {
             const articleId = url.searchParams.get('article')
 
             // Show log panel if hidden
-            const logSidebar = document.querySelector('.log-sidebar')
-            const logToggle = document.getElementById('log-toggle')
-            if (logSidebar && logSidebar.classList.contains('log-sidebar-hidden')) {
-                logSidebar.classList.remove('log-sidebar-hidden')
-                if (logToggle) {
-                    logToggle.classList.add('log-sidebar-open')
-                }
-            }
+            openLogPanel()
 
             scrollToArticle(articleId)
             // Update URL without page reload
@@ -233,18 +226,44 @@ function checkAndScrollToArticle() {
     const articleId = urlParams.get('article')
     if (articleId) {
         // Open the log panel
-        const logSidebar = document.querySelector('.log-sidebar')
-        const logToggle = document.getElementById('log-toggle')
-        if (logSidebar && logSidebar.classList.contains('log-sidebar-hidden')) {
-            logSidebar.classList.remove('log-sidebar-hidden')
-            if (logToggle) {
-                logToggle.classList.add('log-sidebar-open')
-            }
-        }
+        openLogPanel()
 
         // Small delay to ensure DOM is fully rendered
         setTimeout(() => scrollToArticle(articleId), 100)
     }
+}
+
+// Open/close helpers for the log panel (desktop sidebar or mobile overlay)
+function openLogPanel() {
+    const logSidebar = document.querySelector('.log-sidebar')
+    const logToggle = document.getElementById('log-toggle')
+    const logBackdrop = document.getElementById('log-mobile-backdrop')
+    if (!logSidebar) return
+
+    if (window.innerWidth < 1536) {
+        logSidebar.classList.add('log-sidebar-mobile-open')
+        if (logBackdrop) logBackdrop.classList.add('active')
+        document.body.style.overflow = 'hidden'
+    } else {
+        logSidebar.classList.remove('log-sidebar-hidden')
+    }
+    if (logToggle) logToggle.classList.add('log-sidebar-open')
+}
+
+function closeLogPanel() {
+    const logSidebar = document.querySelector('.log-sidebar')
+    const logToggle = document.getElementById('log-toggle')
+    const logBackdrop = document.getElementById('log-mobile-backdrop')
+    if (!logSidebar) return
+
+    if (window.innerWidth < 1536) {
+        logSidebar.classList.remove('log-sidebar-mobile-open')
+        if (logBackdrop) logBackdrop.classList.remove('active')
+        document.body.style.overflow = ''
+    } else {
+        logSidebar.classList.add('log-sidebar-hidden')
+    }
+    if (logToggle) logToggle.classList.remove('log-sidebar-open')
 }
 
 // Log panel toggle functionality
@@ -252,20 +271,30 @@ function initializeLogToggle() {
     const logToggle = document.getElementById('log-toggle')
     const logCloseBtn = document.getElementById('log-close-btn')
     const logSidebar = document.querySelector('.log-sidebar')
+    const logBackdrop = document.getElementById('log-mobile-backdrop')
 
     if (logToggle && logSidebar) {
         logToggle.addEventListener('click', () => {
-            logSidebar.classList.toggle('log-sidebar-hidden')
-            logToggle.classList.toggle('log-sidebar-open')
+            if (window.innerWidth < 1536) {
+                const isOpen = logSidebar.classList.contains('log-sidebar-mobile-open')
+                if (isOpen) closeLogPanel()
+                else openLogPanel()
+            } else {
+                logSidebar.classList.toggle('log-sidebar-hidden')
+                logToggle.classList.toggle('log-sidebar-open')
+            }
         })
     }
 
-    if (logCloseBtn && logSidebar) {
+    if (logCloseBtn) {
         logCloseBtn.addEventListener('click', () => {
-            logSidebar.classList.add('log-sidebar-hidden')
-            if (logToggle) {
-                logToggle.classList.remove('log-sidebar-open')
-            }
+            closeLogPanel()
+        })
+    }
+
+    if (logBackdrop) {
+        logBackdrop.addEventListener('click', () => {
+            closeLogPanel()
         })
     }
 }

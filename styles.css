@@ -689,6 +689,7 @@ h2 {
 }
 
 .markdown-content p {
+    line-height: 1.65;
     margin-bottom: 1rem;
 }
 
@@ -875,6 +876,18 @@ h2 {
     opacity: 0.8;
 }
 
+.badge-pill {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    background-color: transparent;
+    color: #aaa;
+    border: 1px solid #ccc;
+    border-radius: 9999px;
+    font-weight: 500;
+    vertical-align: baseline;
+}
+
 /* Hover states for badges */
 @keyframes construction-marquee {
     0% {
@@ -982,15 +995,7 @@ h2 {
     opacity: 0.7;
 }
 
-@media (max-width: 768px) {
-    .log-toggle-heading {
-        cursor: default;
-    }
 
-    .log-toggle-heading:hover {
-        opacity: 1;
-    }
-}
 
 .log-toggle-icon {
     opacity: 0;
@@ -1006,11 +1011,7 @@ h2 {
     transform: rotate(180deg);
 }
 
-@media (max-width: 768px) {
-    .log-toggle-icon {
-        display: none;
-    }
-}
+
 
 .log-sidebar {
     position: sticky;
@@ -1042,6 +1043,45 @@ h2 {
 
 .log-sidebar-hidden {
     display: none !important;
+}
+
+/* Mobile backdrop */
+.log-mobile-backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 899;
+}
+
+.log-mobile-backdrop.active {
+    display: block;
+}
+
+/* Mobile overlay: full-screen log dialog (below 2xl breakpoint) */
+@media (max-width: 1535px) {
+    .log-sidebar-mobile-open {
+        display: flex !important;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 900;
+        background: #ffffff;
+        overflow-y: auto;
+        background-image: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .log-sidebar-mobile-open {
+        padding: 0 1.5rem 1rem 1.5rem;
+    }
 }
 
 .log-sidebar-header {
