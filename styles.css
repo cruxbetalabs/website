@@ -1176,9 +1176,28 @@ h2 {
 }
 
 .log-entry-content {
-    font-size: var(--caption-size);
+    font-size: var(--body-size);
     line-height: 1.5;
     color: rgba(0, 0, 0, 0.8);
+}
+
+@media (max-width: 768px) {
+    .log-entry-content {
+        font-size: 1.05rem !important;
+        line-height: 1.7;
+    }
+
+    .log-entry-content.markdown-content h1 {
+        font-size: 1.7rem !important;
+    }
+
+    .log-entry-content.markdown-content h2 {
+        font-size: 1.45rem !important;
+    }
+
+    .log-entry-content.markdown-content h3 {
+        font-size: 1.25rem !important;
+    }
 }
 
 /* Category filter tabs */
