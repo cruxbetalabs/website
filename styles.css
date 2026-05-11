@@ -485,6 +485,25 @@ h2 {
     opacity: 1;
 }
 
+/* Opacity by project status */
+.arrow-list li:not(:has(a)) {
+    opacity: 0.75;
+}
+
+.arrow-list li:has(.badge-archived) {
+    opacity: 0.4;
+}
+
+/* Loader icon for ongoing/no-link projects */
+.arrow-list li:not(:has(a))::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2v4'/%3E%3Cpath d='m16.2 7.8 2.9-2.9'/%3E%3Cpath d='M18 12h4'/%3E%3Cpath d='m16.2 16.2 2.9 2.9'/%3E%3Cpath d='M12 18v4'/%3E%3Cpath d='m4.9 19.1 2.9-2.9'/%3E%3Cpath d='M2 12h4'/%3E%3Cpath d='m4.9 4.9 2.9 2.9'/%3E%3C/svg%3E");
+}
+
+/* Archive icon for archived projects */
+.arrow-list li:has(.badge-archived)::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='20' height='5' x='2' y='3' rx='1'/%3E%3Cpath d='M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8'/%3E%3Cpath d='M10 12h4'/%3E%3C/svg%3E");
+}
+
 @media (max-width: 768px) {
     .arrow-list li::before {
         display: none;
@@ -814,69 +833,53 @@ h2 {
 /* Badge variants */
 .badge-under-development {
     display: inline-block;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     padding: 2px 8px;
     background-color: transparent;
-    color: #999;
-    border: 1px solid #999;
-    border-radius: 4px;
-    margin-left: 8px;
+    color: #aaa;
+    border: 1px solid #ccc;
+    border-radius: 9999px;
     font-weight: 500;
     vertical-align: baseline;
-    transform: translateY(-0.1em);
-    transition: all 0.2s ease;
-    opacity: 0.8;
 }
 
-.badge-alpha {
+.badge-early-access {
     display: inline-block;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     padding: 2px 8px;
     background-color: transparent;
-    color: #999;
-    border: 1px solid #999;
-    border-radius: 4px;
-    margin-left: 8px;
+    color: #aaa;
+    border: 1px solid #ccc;
+    border-radius: 9999px;
     font-weight: 500;
     vertical-align: baseline;
-    transform: translateY(-0.1em);
-    transition: all 0.2s ease;
-    opacity: 0.8;
 }
 
 .badge-beta {
     display: inline-block;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     padding: 2px 8px;
     background-color: transparent;
-    color: #999;
-    border: 1px solid #999;
-    border-radius: 4px;
-    margin-left: 8px;
+    color: #aaa;
+    border: 1px solid #ccc;
+    border-radius: 9999px;
     font-weight: 500;
     vertical-align: baseline;
-    transform: translateY(-0.1em);
-    transition: all 0.2s ease;
-    opacity: 0.8;
 }
 
 .badge-archived {
     display: inline-block;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     padding: 2px 8px;
     background-color: transparent;
-    color: #999;
-    border: 1px solid #999;
-    border-radius: 4px;
-    margin-left: 8px;
+    color: #aaa;
+    border: 1px solid #ccc;
+    border-radius: 9999px;
     font-weight: 500;
     vertical-align: baseline;
-    transform: translateY(-0.1em);
-    transition: all 0.2s ease;
-    opacity: 0.8;
 }
 
-.badge-pill {
+.badge-poc {
     display: inline-block;
     font-size: 0.7rem;
     padding: 2px 8px;
@@ -899,43 +902,7 @@ h2 {
     }
 }
 
-.arrow-list li:hover .badge-under-development {
-    background: repeating-linear-gradient(45deg,
-            #FFD700,
-            #FFD700 10px,
-            #000000 10px,
-            #000000 20px);
-    color: #fff;
-    border-color: #FFD700;
-    opacity: 1;
-    overflow: hidden;
-    text-shadow:
-        -1px -1px 0 #000,
-        1px -1px 0 #000,
-        -1px 1px 0 #000,
-        1px 1px 0 #000,
-        0 0 4px rgba(0, 0, 0, 0.8);
-}
 
-.arrow-list li:hover .badge-alpha {
-    background-color: #ffefe0;
-    color: #df631fdc;
-    border-color: #df631fdc;
-    opacity: 1;
-}
-
-.arrow-list li:hover .badge-beta {
-    background-color: #e3f2fd;
-    color: #1565c0;
-    border-color: #1565c0;
-}
-
-.arrow-list li:hover .badge-archived {
-    background-color: #e5e5e5;
-    color: #666;
-    border-color: #666;
-    opacity: 1;
-}
 
 /* Cursor for under development items */
 .arrow-list li:has(.badge-under-development):hover {
