@@ -27,6 +27,9 @@ window.addEventListener("load", () => {
 
     // Initialize Tommy link hover effect
     initializeTommyHover()
+
+    // Initialize project image tooltips
+    initializeProjectTooltips()
 })
 
 // Log system - load and render markdown logs
@@ -347,5 +350,47 @@ function initializeTommyHover() {
 
     tommyLink.addEventListener('mouseleave', () => {
         hoverBox.style.display = 'none'
+    })
+}
+
+function initializeProjectTooltips() {
+    const grid = document.getElementById('projects-grid')
+    const leftCol = document.getElementById('projects-left-col')
+    const tooltip = document.getElementById('project-image-tooltip')
+    const tooltipImg = tooltip ? tooltip.querySelector('img') : null
+
+    if (!grid || !leftCol || !tooltip || !tooltipImg) return
+
+    const items = grid.querySelectorAll('.arrow-list li[data-project-image]')
+
+    items.forEach(li => {
+        li.addEventListener('mouseenter', () => {
+            if (window.innerWidth < 1536) return
+
+            tooltipImg.src = li.dataset.projectImage
+
+            const liRect = li.getBoundingClientRect()
+            const gridRect = grid.getBoundingClientRect()
+            const leftColRect = leftCol.getBoundingClientRect()
+
+            const tooltipHeight = liRect.height
+            const tooltipWidth = leftColRect.width
+            const tooltipLeft = leftColRect.left - gridRect.left
+
+            // Clamp vertical position so tooltip stays within the row's bounds
+            let tooltipTop = liRect.top - gridRect.top
+            const maxTop = gridRect.height - tooltipHeight
+            tooltipTop = Math.max(0, Math.min(tooltipTop, maxTop))
+
+            tooltip.style.top = tooltipTop + 'px'
+            tooltip.style.left = tooltipLeft + 'px'
+            tooltip.style.width = tooltipWidth + 'px'
+            tooltip.style.height = ''
+            tooltip.style.display = 'block'
+        })
+
+        li.addEventListener('mouseleave', () => {
+            tooltip.style.display = 'none'
+        })
     })
 }

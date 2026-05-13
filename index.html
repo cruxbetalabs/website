@@ -72,24 +72,59 @@
 
             <!-- Row 5: Divider + Projects -->
             <div class="divider"></div>
-            <div class="grid-cols mb-12">
-                <div style="display: flex; flex-direction: column;">
+            <div class="grid-cols mb-12" id="projects-grid">
+                <div style="display: flex; flex-direction: column;" id="projects-left-col">
                     <h2 id="projects"><a href="#projects" style="text-decoration: none; color: inherit;">Projects</a>
                     </h2>
-                    <!-- Badge Legend -->
-                    <!-- <div class="badge-legend">
-                        <p style="margin-bottom: 0.5rem; opacity: 0.6; font-size: 0.8rem;">Phase
-                            Badges:</p>
-                        <div style="display: flex; flex-direction: column; gap: 0.25rem; align-items: flex-start;">
-                            <span class="badge-under-development badge-legend-item">Coming Soon</span>
-                            <span class="badge-early-access badge-legend-item">Early Access</span>
-                            <span class="badge-archived badge-legend-item">Archived</span>
+                    <!-- Icon Legend: pushed to bottom -->
+                    <div class="badge-legend">
+                        <p class="caption-text" style="margin-bottom: 0.5rem;">Status:</p>
+                        <div class="badge-legend-group icon-legend-group">
+                            <div class="badge-legend-item badge-legend-item--large">
+                                <svg class="badge-legend-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="m12 16 4-4-4-4" />
+                                    <path d="M8 12h8" />
+                                </svg>
+                                <span>Publicly accessible</span>
+                            </div>
+                            <div class="badge-legend-item badge-legend-item--large">
+                                <svg class="badge-legend-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 2v4" />
+                                    <path d="m16.2 7.8 2.9-2.9" />
+                                    <path d="M18 12h4" />
+                                    <path d="m16.2 16.2 2.9 2.9" />
+                                    <path d="M12 18v4" />
+                                    <path d="m4.9 19.1 2.9-2.9" />
+                                    <path d="M2 12h4" />
+                                    <path d="m4.9 4.9 2.9 2.9" />
+                                </svg>
+                                <span>In development</span>
+                            </div>
+                            <div class="badge-legend-item badge-legend-item--large">
+                                <svg class="badge-legend-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <rect width="20" height="5" x="2" y="3" rx="1" />
+                                    <path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8" />
+                                    <path d="M10 12h4" />
+                                </svg>
+                                <span>Archived</span>
+                            </div>
                         </div>
-                    </div> -->
+                    </div>
+                </div>
+                <!-- Project image tooltip -->
+                <div id="project-image-tooltip" class="project-image-tooltip">
+                    <img src="" alt="Project preview">
                 </div>
                 <div>
                     <ul class="arrow-list space-y-4">
-                        <li>
+                        <li data-project-image="assets/projects/spray.png">
                             <div class="project-header">
                                 <a href="https://spray.cruxbeta.dev" target="_blank">
                                     <p class="body-text inline project-title"><strong>Spray</strong></p>
@@ -101,7 +136,7 @@
                             <p class="caption-text mt-2">The operating system for modern rock climbing.
                             </p>
                         </li>
-                        <li>
+                        <li data-project-image="assets/projects/toolbox.png">
                             <div class="project-header">
                                 <a href="https://github.com/tommyjtl/climbing-analysis-toolbox" target="_blank">
                                     <p class="body-text inline project-title"><strong>Toolbox</strong></p>
@@ -109,9 +144,9 @@
                                 <span class="project-dotted-line"></span>
                                 <span class="project-code-name">CBL-03</span>
                             </div>
-                            <p class="caption-text mt-2">Computer vision tools for analyzing climbing videos.</p>
+                            <p class="caption-text mt-2">Computer vision toolbox for analyzing climbing videos.</p>
                         </li>
-                        <li>
+                        <li data-project-image="assets/projects/reconstruct.png">
                             <div class="project-header">
                                 <a href="https://github.com/cruxbetalabs/reconstruct" target="_blank">
                                     <p class="body-text inline project-title"><strong>Reconstruct</strong></p>
@@ -120,9 +155,9 @@
                                 <span class="badge-poc">PoC</span>
                                 <span class="project-code-name">CBL-02</span>
                             </div>
-                            <p class="caption-text mt-2">A climbing pose 3D reconstruction web app.</p>
+                            <p class="caption-text mt-2">A tool for climbing pose 3D reconstruction.</p>
                         </li>
-                        <li>
+                        <li data-project-image="assets/projects/replay.png">
                             <div class="project-header">
                                 <a href="https://github.com/cruxbetalabs/replay" target="_blank">
                                     <p class="body-text inline project-title"><strong>Replay</strong></p>
@@ -131,7 +166,7 @@
                                 <span class="badge-poc">PoC</span>
                                 <span class="project-code-name">CBL-05</span>
                             </div>
-                            <p class="caption-text mt-2">A web-based climbing movement analysis tool.
+                            <p class="caption-text mt-2">A tool for climbing movement analysis.
                             </p>
                         </li>
                         <li>
@@ -141,20 +176,19 @@
                                 <span class="badge-poc">PoC</span>
                                 <span class="project-code-name">CBL-06</span>
                             </div>
-                            <p class="caption-text mt-2">An iOS app for frame-by-frame pose overlay and reach simulation
-                                on climbing videos.</p>
+                            <p class="caption-text mt-2">A tool for frame-by-frame pose overlay & reach simulation.</p>
                         </li>
                         <li>
                             <div class="project-header">
-                                <p class="body-text inline project-title"><strong>Pipeline</strong></p>
+                                <p class="body-text inline project-title"><strong>Beta-1</strong></p>
                                 <span class="project-dotted-line"></span>
                                 <span class="badge-poc">PoC</span>
                                 <span class="project-code-name">CBL-07</span>
                             </div>
-                            <p class="caption-text mt-2">A data pipeline for extracting and annotating climbing
-                                movements from video, toward a movement classifier.</p>
+                            <p class="caption-text mt-2">A unified model for recognizing climbing poses, contact, and
+                                movement from video.</p>
                         </li>
-                        <li>
+                        <li data-project-image="assets/projects/boulder-quest.png">
                             <div class="project-header">
                                 <a href="https://blog.tjtl.io/climbing-board-game/" target="_blank">
                                     <p class="body-text inline project-title"><strong>Boulder Quest</strong></p>
