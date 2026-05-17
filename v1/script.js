@@ -1,0 +1,396 @@
+// Import markdown utilities
+import { parseMarkdown } from './util.js'
+
+// Create loading indicator
+const loadingDiv = document.createElement('div')
+loadingDiv.id = 'loading'
+loadingDiv.textContent = 'Loading...'
+loadingDiv.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: white; z-index: 9999; font-size: 1.3rem; color: #0b0b0bff;'
+
+// Show loading indicator when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    document.body.insertBefore(loadingDiv, document.body.firstChild)
+})
+
+window.addEventListener("load", () => {
+    loadingDiv.style.display = 'none'
+    console.log("Everything is loaded")
+
+    // Initialize log system
+    initializeLogSystem()
+
+    // Initialize log toggle
+    initializeLogToggle()
+
+    // Initialize logo hover effect
+    initializeLogoHover()
+
+    // Initialize Tommy link hover effect
+    initializeTommyHover()
+
+    // Initialize project image tooltips
+    initializeProjectTooltips()
+})
+
+// Log system - load and render markdown logs
+let logsData = []
+
+async function initializeLogSystem() {
+    try {
+        // Load logs metadata
+        const response = await fetch('logs/logs.json')
+        const data = await response.json()
+        logsData = data.logs
+
+        // Render log overview
+        renderLogOverview()
+
+        // Render log cards in sidebar
+        await renderLogCards()
+
+        // Initialize category filtering
+        initializeLogFiltering()
+
+        // Check for article query param and scroll to it
+        checkAndScrollToArticle()
+
+        // Dispatch event when logs are loaded
+        window.dispatchEvent(new Event('logsLoaded'))
+    } catch (error) {
+        console.error('Error loading logs:', error)
+        // Dispatch event even on error so scroll can still happen
+        window.dispatchEvent(new Event('logsLoaded'))
+    }
+}
+
+function formatDate(dateString) {
+    const date = new Date(dateString + 'T00:00:00')
+    return date.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+    })
+}
+
+function getCategoryLabel(category) {
+    const labels = {
+        'snippet': 'Snippets',
+        'climbing-analysis': 'Climbing Video Analysis',
+        'crux-beta-ios': 'Crux & Beta iOS',
+        'crux-web': 'Crux Web',
+        'boulder-quest': 'Boulder Quest'
+    }
+    return labels[category] || category
+}
+
+function renderLogOverview() {
+    const overviewList = document.querySelector('.log-overview-list')
+    if (!overviewList) return
+
+    if (logsData.length === 0) {
+        overviewList.innerHTML = `
+            <li class="log-overview-item">
+                <span class="log-overview-title body-text">No logs found</span>
+            </li>
+        `
+        return
+    }
+
+    overviewList.innerHTML = logsData.map(log => `
+        <li class="log-overview-item">
+            <a href="?article=${log.id}" class="log-overview-link">
+                <span class="log-overview-title body-text">${log.title}</span>
+                <span class="log-overview-dotted-line"></span>
+                <span class="log-overview-meta">
+                    <span>${formatDate(log.date)}</span>
+                    <span class="log-overview-category-badge">${getCategoryLabel(log.category)}</span>
+                </span>
+            </a>
+        </li>
+    `).join('')
+
+    // Add click event handlers for smooth scrolling
+    overviewList.querySelectorAll('.log-overview-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault()
+            const url = new URL(link.href)
+            const articleId = url.searchParams.get('article')
+
+            // Show log panel if hidden
+            openLogPanel()
+
+            scrollToArticle(articleId)
+            // Update URL without page reload
+            window.history.pushState({}, '', `?article=${articleId}`)
+        })
+    })
+}
+
+async function renderLogCards() {
+    const logEntriesContainer = document.querySelector('.log-entries')
+    if (!logEntriesContainer) return
+
+    logEntriesContainer.innerHTML = ''
+
+    for (const log of logsData) {
+        try {
+            // Fetch markdown content
+            const response = await fetch(log.file)
+            const markdown = await response.text()
+
+            // Parse markdown to HTML with custom renderer
+            const htmlContent = parseMarkdown(markdown)
+
+            // Create log card
+            const logCard = document.createElement('div')
+            logCard.className = 'log-entry active'
+            logCard.dataset.category = log.category
+            logCard.id = `log-${log.id}`
+            logCard.innerHTML = `
+                <div class="log-entry-header">
+                    <div class="log-entry-date">${formatDate(log.date)}</div>
+                    <span class="log-entry-badge">${getCategoryLabel(log.category)}</span>
+                </div>
+                <div class="log-entry-content markdown-content">${htmlContent}</div>
+            `
+
+            logEntriesContainer.appendChild(logCard)
+        } catch (error) {
+            console.error(`Error loading log ${log.id}:`, error)
+        }
+    }
+}
+
+// Log category filtering system
+function initializeLogFiltering() {
+    const categoryButtons = document.querySelectorAll('.log-category-btn')
+    const logEntries = document.querySelectorAll('.log-entry')
+
+    categoryButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            const selectedCategory = button.dataset.category
+
+            // Update active button
+            categoryButtons.forEach(btn => btn.classList.remove('active'))
+            button.classList.add('active')
+
+            // Filter entries
+            logEntries.forEach(entry => {
+                if (selectedCategory === 'all' || entry.dataset.category === selectedCategory) {
+                    entry.classList.add('active')
+                } else {
+                    entry.classList.remove('active')
+                }
+            })
+
+            // Reset URL parameters 
+            if (e.isTrusted) { // only if it's a real user click (not programmatic)
+                window.history.replaceState({}, '', window.location.pathname)
+            }
+        })
+    })
+}
+
+// Scroll to article in the log sidebar
+function scrollToArticle(articleId) {
+    const logCard = document.getElementById(`log-${articleId}`)
+    if (logCard) {
+        // Get the category of the log entry
+        const logCategory = logCard.dataset.category
+
+        // Find and click the corresponding category button
+        const categoryButtons = document.querySelectorAll('.log-category-btn')
+        categoryButtons.forEach(button => {
+            if (button.dataset.category === logCategory) {
+                button.click()
+            }
+        })
+
+        // Get the log sidebar element
+        const logSidebar = document.querySelector('.log-sidebar')
+        const logSidebarHeader = document.querySelector('.log-sidebar-header')
+        if (logSidebar && logSidebarHeader) {
+            // Calculate the position to scroll to
+            const cardOffsetTop = logCard.offsetTop
+            const headerHeight = logSidebarHeader.offsetHeight
+            const scrollPosition = cardOffsetTop - headerHeight - 32 // 2rem (32px) to match padding-top
+
+            logSidebar.scrollTo({
+                top: scrollPosition,
+                behavior: 'smooth'
+            })
+        }
+    }
+}
+
+// Check URL params and scroll to article if specified
+function checkAndScrollToArticle() {
+    const urlParams = new URLSearchParams(window.location.search)
+    const articleId = urlParams.get('article')
+    if (articleId) {
+        // Open the log panel
+        openLogPanel()
+
+        // Small delay to ensure DOM is fully rendered
+        setTimeout(() => scrollToArticle(articleId), 100)
+    }
+}
+
+// Open/close helpers for the log panel (desktop sidebar or mobile overlay)
+function openLogPanel() {
+    const logSidebar = document.querySelector('.log-sidebar')
+    const logToggle = document.getElementById('log-toggle')
+    const logBackdrop = document.getElementById('log-mobile-backdrop')
+    if (!logSidebar) return
+
+    if (window.innerWidth < 1536) {
+        logSidebar.classList.add('log-sidebar-mobile-open')
+        if (logBackdrop) logBackdrop.classList.add('active')
+        document.body.style.overflow = 'hidden'
+    } else {
+        logSidebar.classList.remove('log-sidebar-hidden')
+    }
+    if (logToggle) logToggle.classList.add('log-sidebar-open')
+}
+
+function closeLogPanel() {
+    const logSidebar = document.querySelector('.log-sidebar')
+    const logToggle = document.getElementById('log-toggle')
+    const logBackdrop = document.getElementById('log-mobile-backdrop')
+    if (!logSidebar) return
+
+    if (window.innerWidth < 1536) {
+        logSidebar.classList.remove('log-sidebar-mobile-open')
+        if (logBackdrop) logBackdrop.classList.remove('active')
+        document.body.style.overflow = ''
+    } else {
+        logSidebar.classList.add('log-sidebar-hidden')
+    }
+    if (logToggle) logToggle.classList.remove('log-sidebar-open')
+}
+
+// Log panel toggle functionality
+function initializeLogToggle() {
+    const logToggle = document.getElementById('log-toggle')
+    const logCloseBtn = document.getElementById('log-close-btn')
+    const logSidebar = document.querySelector('.log-sidebar')
+    const logBackdrop = document.getElementById('log-mobile-backdrop')
+
+    if (logToggle && logSidebar) {
+        logToggle.addEventListener('click', () => {
+            if (window.innerWidth < 1536) {
+                const isOpen = logSidebar.classList.contains('log-sidebar-mobile-open')
+                if (isOpen) closeLogPanel()
+                else openLogPanel()
+            } else {
+                logSidebar.classList.toggle('log-sidebar-hidden')
+                logToggle.classList.toggle('log-sidebar-open')
+            }
+        })
+    }
+
+    if (logCloseBtn) {
+        logCloseBtn.addEventListener('click', () => {
+            closeLogPanel()
+        })
+    }
+
+    if (logBackdrop) {
+        logBackdrop.addEventListener('click', () => {
+            closeLogPanel()
+        })
+    }
+}
+
+// Logo hover effect
+function initializeLogoHover() {
+    const logo = document.getElementById('crux-logo')
+    const hoverBox = document.getElementById('logo-hover-box')
+
+    if (!logo || !hoverBox) return
+
+    const offset = { x: 15, y: 15 } // Offset from cursor
+
+    logo.addEventListener('mouseenter', () => {
+        hoverBox.style.display = 'block'
+    })
+
+    logo.addEventListener('mousemove', (e) => {
+        const x = e.clientX + offset.x
+        const y = e.clientY + offset.y
+
+        hoverBox.style.left = x + 'px'
+        hoverBox.style.top = y + 'px'
+    })
+
+    logo.addEventListener('mouseleave', () => {
+        hoverBox.style.display = 'none'
+    })
+}
+
+function initializeTommyHover() {
+    const tommyLink = document.getElementById('tommy-link')
+    const hoverBox = document.getElementById('tommy-hover-box')
+
+    if (!tommyLink || !hoverBox) return
+
+    const offset = { x: 15, y: 15 } // Offset from cursor
+
+    tommyLink.addEventListener('mouseenter', () => {
+        hoverBox.style.display = 'block'
+    })
+
+    tommyLink.addEventListener('mousemove', (e) => {
+        const x = e.clientX + offset.x
+        const y = e.clientY + offset.y
+
+        hoverBox.style.left = x + 'px'
+        hoverBox.style.top = y + 'px'
+    })
+
+    tommyLink.addEventListener('mouseleave', () => {
+        hoverBox.style.display = 'none'
+    })
+}
+
+function initializeProjectTooltips() {
+    const grid = document.getElementById('projects-grid')
+    const leftCol = document.getElementById('projects-left-col')
+    const tooltip = document.getElementById('project-image-tooltip')
+    const tooltipImg = tooltip ? tooltip.querySelector('img') : null
+
+    if (!grid || !leftCol || !tooltip || !tooltipImg) return
+
+    const items = grid.querySelectorAll('.arrow-list li[data-project-image]')
+
+    items.forEach(li => {
+        li.addEventListener('mouseenter', () => {
+            if (window.innerWidth < 1536) return
+
+            tooltipImg.src = li.dataset.projectImage
+
+            const liRect = li.getBoundingClientRect()
+            const gridRect = grid.getBoundingClientRect()
+            const leftColRect = leftCol.getBoundingClientRect()
+
+            const tooltipHeight = liRect.height
+            const tooltipWidth = leftColRect.width
+            const tooltipLeft = leftColRect.left - gridRect.left
+
+            // Clamp vertical position so tooltip stays within the row's bounds
+            let tooltipTop = liRect.top - gridRect.top
+            const maxTop = gridRect.height - tooltipHeight
+            tooltipTop = Math.max(0, Math.min(tooltipTop, maxTop))
+
+            tooltip.style.top = tooltipTop + 'px'
+            tooltip.style.left = tooltipLeft + 'px'
+            tooltip.style.width = tooltipWidth + 'px'
+            tooltip.style.height = ''
+            tooltip.style.display = 'block'
+        })
+
+        li.addEventListener('mouseleave', () => {
+            tooltip.style.display = 'none'
+        })
+    })
+}

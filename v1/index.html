@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crux Beta Labs</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script type="module" src="script.js"></script>
+</head>
+
+<body class="bg-white">
+    <div class="flex">
+        <!-- Main content: 2/3 width on desktop, full width on mobile -->
+        <div class="w-full 2xl:w-3/5 px-4 py-6 md:px-12 md:py-12" id="main">
+            <!-- Row 1: Title -->
+            <div class="mb-12">
+                <h2>Computational Climbing R&D</h2>
+            </div>
+
+            <!-- Row 2: Divider + Crux Beta Labs -->
+            <div class="divider"></div>
+            <div class="grid-cols">
+                <div class="flex items-center justify-start">
+                    <a href="/"><img src="assets/logo.svg" alt="Crux Beta Labs Logo" style="height: var(--h1-size);"
+                            id="crux-logo"></a>
+                </div>
+                <div>
+                    <a href="/" style="text-decoration: none; color: inherit;">
+                        <h1>Crux Beta Labs</h1>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Floating hover box -->
+            <div id="logo-hover-box" class="logo-hover-box">
+                <img src="./assets/process.jpg" alt="Process Preview">
+            </div>
+
+            <!-- Tommy Liu hover box -->
+            <div id="tommy-hover-box" class="logo-hover-box">
+                <img src="./assets/contact.png" alt="Tommy Liu">
+            </div>
+
+            <!-- Row 3: Divider + Founder info -->
+            <div class="divider"></div>
+            <div class="grid-cols mb-6 md:mb-12">
+                <div></div>
+                <div>
+                    <p class="caption-text">Founded by <a href="https://blog.tjtl.io/bouldering-and-computer-vision/"
+                            class="underline" target="_blank" id="tommy-link">Tommy Liu</a>. Based in Berkeley,
+                        California.</p>
+                </div>
+            </div>
+
+            <!-- Row 4: About section -->
+            <div class="grid-cols mb-12">
+                <div>
+                    <h2 id="about"><a href="#about" style="text-decoration: none; color: inherit;">About</a></h2>
+                </div>
+                <div>
+                    <p class="body-text">Climbing is a form of art, shaped by instinct, refined by
+                        decision, and executed through human computation. We build tools for spatial
+                        computing and climbing performance, exploring how the body thinks in motion.</p>
+                </div>
+            </div>
+
+            <!-- Row 5: Divider + Projects -->
+            <div class="divider"></div>
+            <div class="grid-cols mb-12" id="projects-grid">
+                <div style="display: flex; flex-direction: column;" id="projects-left-col">
+                    <h2 id="projects"><a href="#projects" style="text-decoration: none; color: inherit;">Projects</a>
+                    </h2>
+                    <!-- Icon Legend: pushed to bottom -->
+                    <div class="badge-legend">
+                        <p class="caption-text" style="margin-bottom: 0.5rem;">Status:</p>
+                        <div class="badge-legend-group icon-legend-group">
+                            <div class="badge-legend-item badge-legend-item--large">
+                                <svg class="badge-legend-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="m12 16 4-4-4-4" />
+                                    <path d="M8 12h8" />
+                                </svg>
+                                <span>Publicly accessible</span>
+                            </div>
+                            <div class="badge-legend-item badge-legend-item--large">
+                                <svg class="badge-legend-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 2v4" />
+                                    <path d="m16.2 7.8 2.9-2.9" />
+                                    <path d="M18 12h4" />
+                                    <path d="m16.2 16.2 2.9 2.9" />
+                                    <path d="M12 18v4" />
+                                    <path d="m4.9 19.1 2.9-2.9" />
+                                    <path d="M2 12h4" />
+                                    <path d="m4.9 4.9 2.9 2.9" />
+                                </svg>
+                                <span>In development</span>
+                            </div>
+                            <div class="badge-legend-item badge-legend-item--large">
+                                <svg class="badge-legend-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <rect width="20" height="5" x="2" y="3" rx="1" />
+                                    <path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8" />
+                                    <path d="M10 12h4" />
+                                </svg>
+                                <span>Archived</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project image tooltip -->
+                <div id="project-image-tooltip" class="project-image-tooltip">
+                    <img src="" alt="Project preview">
+                </div>
+                <div>
+                    <ul class="arrow-list space-y-4">
+                        <li data-project-image="assets/projects/spray.png">
+                            <div class="project-header">
+                                <a href="https://spray.cruxbeta.dev" target="_blank">
+                                    <p class="body-text inline project-title"><strong>Spray</strong></p>
+                                </a>
+                                <span class="project-dotted-line"></span>
+                                <span class="badge-early-access">Early Access</span>
+                                <span class="project-code-name">CBL-04</span>
+                            </div>
+                            <p class="caption-text mt-2">The operating system for modern rock climbing.
+                            </p>
+                        </li>
+                        <li data-project-image="assets/projects/toolbox.png">
+                            <div class="project-header">
+                                <a href="https://github.com/tommyjtl/climbing-analysis-toolbox" target="_blank">
+                                    <p class="body-text inline project-title"><strong>Toolbox</strong></p>
+                                </a>
+                                <span class="project-dotted-line"></span>
+                                <span class="project-code-name">CBL-03</span>
+                            </div>
+                            <p class="caption-text mt-2">Computer vision toolbox for analyzing climbing videos.</p>
+                        </li>
+                        <li data-project-image="assets/projects/reconstruct.png">
+                            <div class="project-header">
+                                <a href="https://github.com/cruxbetalabs/reconstruct" target="_blank">
+                                    <p class="body-text inline project-title"><strong>Reconstruct</strong></p>
+                                </a>
+                                <span class="project-dotted-line"></span>
+                                <span class="badge-poc">PoC</span>
+                                <span class="project-code-name">CBL-02</span>
+                            </div>
+                            <p class="caption-text mt-2">A tool for climbing pose 3D reconstruction.</p>
+                        </li>
+                        <li data-project-image="assets/projects/replay.png">
+                            <div class="project-header">
+                                <a href="https://github.com/cruxbetalabs/replay" target="_blank">
+                                    <p class="body-text inline project-title"><strong>Replay</strong></p>
+                                </a>
+                                <span class="project-dotted-line"></span>
+                                <span class="badge-poc">PoC</span>
+                                <span class="project-code-name">CBL-05</span>
+                            </div>
+                            <p class="caption-text mt-2">A tool for climbing movement analysis.
+                            </p>
+                        </li>
+                        <li>
+                            <div class="project-header">
+                                <p class="body-text inline project-title"><strong>Trace</strong></p>
+                                <span class="project-dotted-line"></span>
+                                <span class="badge-poc">PoC</span>
+                                <span class="project-code-name">CBL-06</span>
+                            </div>
+                            <p class="caption-text mt-2">A tool for frame-by-frame pose overlay & reach simulation.</p>
+                        </li>
+                        <li>
+                            <div class="project-header">
+                                <p class="body-text inline project-title"><strong>Beta-1</strong></p>
+                                <span class="project-dotted-line"></span>
+                                <span class="badge-poc">PoC</span>
+                                <span class="project-code-name">CBL-07</span>
+                            </div>
+                            <p class="caption-text mt-2">A unified model for recognizing climbing poses, contact, and
+                                movement from video.</p>
+                        </li>
+                        <li data-project-image="assets/projects/boulder-quest.png">
+                            <div class="project-header">
+                                <a href="https://blog.tjtl.io/climbing-board-game/" target="_blank">
+                                    <p class="body-text inline project-title"><strong>Boulder Quest</strong></p>
+                                </a>
+                                <span class="project-dotted-line"></span>
+                                <span class="badge-archived">Archived</span>
+                                <span class="project-code-name">CBL-01</span>
+                            </div>
+                            <p class="caption-text mt-2">A playful bouldering-themed board game.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Row 6: Divider + Log -->
+            <div class="divider"></div>
+            <div class="grid-cols mb-12">
+                <div>
+                    <h2 id="log" class="log-toggle-heading">
+                        <a href="#log" id="log-toggle"
+                            style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 0.5rem;">
+                            <span>Log</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="log-toggle-icon">
+                                <path d="M3 5v14" />
+                                <path d="M21 12H7" />
+                                <path d="m15 18 6-6-6-6" />
+                            </svg>
+                        </a>
+                    </h2>
+                </div>
+                <div>
+                    <ul class="log-overview-list">
+                        <li class="log-overview-item">
+                            <span class="log-overview-title body-text">Loading logs...</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Row 8: Footer -->
+            <div class="divider"></div>
+            <div class="footer-content">
+                <p class="caption-text">© 2026 Crux Beta Labs LLC. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="https://github.com/cruxbetalabs" target="_blank" class="social-link"
+                        title="Follow us on GitHub">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-github-icon lucide-github">
+                            <path
+                                d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+                            <path d="M9 18c-4.51 2-5-2-7-2" />
+                        </svg>
+                    </a>
+                    <a href="https://www.instagram.com/computational.climbing/" target="_blank" class="social-link"
+                        title="Follow us on Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-instagram-icon lucide-instagram">
+                            <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                            <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+                        </svg>
+                    </a>
+                    <a href="https://www.linkedin.com/company/crux-beta-labs/" target="_blank" class="social-link"
+                        title="Follow us on LinkedIn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-linkedin-icon lucide-linkedin">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                            <rect width="4" height="12" x="2" y="9" />
+                            <circle cx="4" cy="4" r="2" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Log mobile backdrop -->
+        <div id="log-mobile-backdrop" class="log-mobile-backdrop"></div>
+
+        <!-- Right 1/3: Log sidebar on desktop -->
+        <div class="hidden 2xl:block 2xl:w-2/5 bg-white log-sidebar log-sidebar-hidden">
+            <div class="log-sidebar-header">
+                <div class="log-sidebar-title-row">
+                    <h2>Log</h2>
+                    <button id="log-close-btn" class="log-close-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-x-icon lucide-x">
+                            <path d="M18 6 6 18" />
+                            <path d="m6 6 12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Category filter tabs -->
+                <div class="log-categories">
+                    <button class="log-category-btn active" data-category="all">All</button>
+                    <button class="log-category-btn" data-category="snippet">Snippets</button>
+                    <button class="log-category-btn" data-category="climbing-analysis">Climbing Video Analysis</button>
+                    <button class="log-category-btn" data-category="crux-beta-ios">Crux & Beta iOS</button>
+                </div>
+            </div>
+
+            <!-- Log entries container -->
+            <div class="log-entries">
+                <!-- Log entries will be loaded dynamically from markdown files -->
+            </div>
+        </div>
+    </div>
+</body>
+
+<script type="module">
+    // Handle scroll to anchor on page load
+    window.addEventListener('load', () => {
+        const hash = window.location.hash.slice(1);
+        if (hash) {
+            // Wait for logs to be loaded before scrolling
+            window.addEventListener('logsLoaded', () => {
+                const element = document.getElementById(hash);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, { once: true });
+
+            // Fallback timeout in case logsLoaded event doesn't fire
+            setTimeout(() => {
+                const element = document.getElementById(hash);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 2000);
+        }
+    });
+
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+        apiKey: "AIzaSyDEun2yuCZcIxDBqBx2mnIKKxdA44Bj7Iw",
+        authDomain: "website-c453e.firebaseapp.com",
+        projectId: "website-c453e",
+        storageBucket: "website-c453e.firebasestorage.app",
+        messagingSenderId: "813469111616",
+        appId: "1:813469111616:web:5f3600ee1736df5102d6a5",
+        measurementId: "G-9E1G8V1Y6V"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+</script>
+
+</html>
