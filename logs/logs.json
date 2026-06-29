@@ -1,6 +1,13 @@
 {
     "logs": [
         {
+            "id": "2026-06-29",
+            "file": "logs/2026-06-29.md",
+            "title": "Pausing operations",
+            "date": "2026-06-29",
+            "category": "snippet"
+        },
+        {
             "id": "2026-05-10",
             "file": "logs/2026-05-10.md",
             "title": "A chat with Tim",
@@ -34,20 +41,6 @@
             "date": "2026-01-05",
             "category": "snippet",
             "file": "logs/2026-01-05-site-launched.md"
-        },
-        {
-            "id": "2025-12-18-snippet",
-            "title": "December 18 snippet",
-            "date": "2025-12-18",
-            "category": "snippet",
-            "file": "logs/2025-12-18.md"
-        },
-        {
-            "id": "summer-2025-snippet",
-            "title": "Summer 2025 snippet",
-            "date": "2025-08-01",
-            "category": "climbing-analysis",
-            "file": "logs/summer-2025.md"
         }
     ]
 }

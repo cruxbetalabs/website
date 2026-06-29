@@ -485,23 +485,14 @@ h2 {
     opacity: 1;
 }
 
-/* Opacity by project status */
+/* Opacity for projects without links */
 .arrow-list li:not(:has(a)) {
     opacity: 0.75;
-}
-
-.arrow-list li:has(.badge-archived) {
-    opacity: 0.4;
 }
 
 /* Loader icon for ongoing/no-link projects */
 .arrow-list li:not(:has(a))::before {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2v4'/%3E%3Cpath d='m16.2 7.8 2.9-2.9'/%3E%3Cpath d='M18 12h4'/%3E%3Cpath d='m16.2 16.2 2.9 2.9'/%3E%3Cpath d='M12 18v4'/%3E%3Cpath d='m4.9 19.1 2.9-2.9'/%3E%3Cpath d='M2 12h4'/%3E%3Cpath d='m4.9 4.9 2.9 2.9'/%3E%3C/svg%3E");
-}
-
-/* Archive icon for archived projects */
-.arrow-list li:has(.badge-archived)::before {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='20' height='5' x='2' y='3' rx='1'/%3E%3Cpath d='M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8'/%3E%3Cpath d='M10 12h4'/%3E%3C/svg%3E");
 }
 
 @media (max-width: 768px) {
@@ -679,43 +670,43 @@ h2 {
     font-weight: 500;
 }
 
-/* Markdown content styling */
+/* Markdown content styling (log entries — caption-size baseline, DESIGN.md scale) */
 .markdown-content {
-    font-size: var(--body-size);
-    line-height: 1.6;
+    font-size: var(--caption-size);
+    line-height: 1.5;
     color: rgba(0, 0, 0, 0.8);
 }
 
 .markdown-content h1 {
-    font-size: 1.5rem !important;
+    font-size: calc(var(--caption-size) * 22 / 13) !important;
     font-weight: 600 !important;
-    margin-bottom: 1rem !important;
+    margin-bottom: 0.75rem !important;
     margin-top: 0 !important;
 }
 
 .markdown-content h2 {
-    font-size: 1.25rem !important;
-    font-weight: 700 !important;
-    margin-top: 1.5rem !important;
-    margin-bottom: 0.75rem !important;
-}
-
-.markdown-content h3 {
-    font-size: 1.1rem !important;
+    font-size: calc(var(--caption-size) * 18 / 13) !important;
     font-weight: 600 !important;
-    margin-top: 1rem !important;
+    margin-top: 1.25rem !important;
     margin-bottom: 0.5rem !important;
 }
 
+.markdown-content h3 {
+    font-size: calc(var(--caption-size) * 16 / 13) !important;
+    font-weight: 600 !important;
+    margin-top: 0.875rem !important;
+    margin-bottom: 0.375rem !important;
+}
+
 .markdown-content p {
-    line-height: 1.65;
-    margin-bottom: 1rem;
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
 }
 
 .markdown-content ul,
 .markdown-content ol {
-    margin-bottom: 1rem;
-    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+    padding-left: 1.25rem;
 }
 
 .markdown-content ul {
@@ -856,18 +847,6 @@ h2 {
 }
 
 .badge-beta {
-    display: inline-block;
-    font-size: 0.7rem;
-    padding: 2px 8px;
-    background-color: transparent;
-    color: #aaa;
-    border: 1px solid #ccc;
-    border-radius: 9999px;
-    font-weight: 500;
-    vertical-align: baseline;
-}
-
-.badge-archived {
     display: inline-block;
     font-size: 0.7rem;
     padding: 2px 8px;
@@ -1087,6 +1066,13 @@ h2 {
     display: block;
 }
 
+@media (min-width: 1536px) {
+    .log-mobile-backdrop,
+    .log-mobile-backdrop.active {
+        display: none !important;
+    }
+}
+
 /* Mobile overlay: full-screen log dialog (below 2xl breakpoint) */
 @media (max-width: 1535px) {
     .log-sidebar-mobile-open {
@@ -1202,28 +1188,9 @@ h2 {
 }
 
 .log-entry-content {
-    font-size: var(--body-size);
+    font-size: var(--caption-size);
     line-height: 1.5;
     color: rgba(0, 0, 0, 0.8);
-}
-
-@media (max-width: 768px) {
-    .log-entry-content {
-        font-size: 1.05rem !important;
-        line-height: 1.7;
-    }
-
-    .log-entry-content.markdown-content h1 {
-        font-size: 1.7rem !important;
-    }
-
-    .log-entry-content.markdown-content h2 {
-        font-size: 1.45rem !important;
-    }
-
-    .log-entry-content.markdown-content h3 {
-        font-size: 1.25rem !important;
-    }
 }
 
 /* Category filter tabs */

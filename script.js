@@ -236,6 +236,13 @@ function checkAndScrollToArticle() {
     }
 }
 
+// Log panel breakpoint matches Tailwind 2xl (1536px)
+const LOG_PANEL_DESKTOP_MIN_WIDTH = 1536
+
+function isLogPanelDesktop() {
+    return window.innerWidth >= LOG_PANEL_DESKTOP_MIN_WIDTH
+}
+
 // Open/close helpers for the log panel (desktop sidebar or mobile overlay)
 function openLogPanel() {
     const logSidebar = document.querySelector('.log-sidebar')
@@ -243,12 +250,12 @@ function openLogPanel() {
     const logBackdrop = document.getElementById('log-mobile-backdrop')
     if (!logSidebar) return
 
-    if (window.innerWidth < 1536) {
+    if (isLogPanelDesktop()) {
+        logSidebar.classList.remove('log-sidebar-hidden')
+    } else {
         logSidebar.classList.add('log-sidebar-mobile-open')
         if (logBackdrop) logBackdrop.classList.add('active')
         document.body.style.overflow = 'hidden'
-    } else {
-        logSidebar.classList.remove('log-sidebar-hidden')
     }
     if (logToggle) logToggle.classList.add('log-sidebar-open')
 }
@@ -259,14 +266,43 @@ function closeLogPanel() {
     const logBackdrop = document.getElementById('log-mobile-backdrop')
     if (!logSidebar) return
 
-    if (window.innerWidth < 1536) {
+    if (isLogPanelDesktop()) {
+        logSidebar.classList.add('log-sidebar-hidden')
+    } else {
         logSidebar.classList.remove('log-sidebar-mobile-open')
         if (logBackdrop) logBackdrop.classList.remove('active')
         document.body.style.overflow = ''
-    } else {
-        logSidebar.classList.add('log-sidebar-hidden')
     }
     if (logToggle) logToggle.classList.remove('log-sidebar-open')
+}
+
+function syncLogPanelLayout() {
+    const logSidebar = document.querySelector('.log-sidebar')
+    const logToggle = document.getElementById('log-toggle')
+    const logBackdrop = document.getElementById('log-mobile-backdrop')
+    if (!logSidebar) return
+
+    const isOpen = logToggle?.classList.contains('log-sidebar-open')
+
+    if (isLogPanelDesktop()) {
+        logSidebar.classList.remove('log-sidebar-mobile-open')
+        if (logBackdrop) logBackdrop.classList.remove('active')
+        document.body.style.overflow = ''
+
+        if (isOpen) {
+            logSidebar.classList.remove('log-sidebar-hidden')
+        } else {
+            logSidebar.classList.add('log-sidebar-hidden')
+        }
+    } else if (isOpen) {
+        logSidebar.classList.add('log-sidebar-mobile-open')
+        if (logBackdrop) logBackdrop.classList.add('active')
+        document.body.style.overflow = 'hidden'
+    } else {
+        logSidebar.classList.remove('log-sidebar-mobile-open')
+        if (logBackdrop) logBackdrop.classList.remove('active')
+        document.body.style.overflow = ''
+    }
 }
 
 // Log panel toggle functionality
@@ -278,13 +314,13 @@ function initializeLogToggle() {
 
     if (logToggle && logSidebar) {
         logToggle.addEventListener('click', () => {
-            if (window.innerWidth < 1536) {
+            if (isLogPanelDesktop()) {
+                logSidebar.classList.toggle('log-sidebar-hidden')
+                logToggle.classList.toggle('log-sidebar-open')
+            } else {
                 const isOpen = logSidebar.classList.contains('log-sidebar-mobile-open')
                 if (isOpen) closeLogPanel()
                 else openLogPanel()
-            } else {
-                logSidebar.classList.toggle('log-sidebar-hidden')
-                logToggle.classList.toggle('log-sidebar-open')
             }
         })
     }
@@ -300,6 +336,12 @@ function initializeLogToggle() {
             closeLogPanel()
         })
     }
+
+    let resizeTimeout
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout)
+        resizeTimeout = setTimeout(syncLogPanelLayout, 100)
+    })
 }
 
 // Logo hover effect
